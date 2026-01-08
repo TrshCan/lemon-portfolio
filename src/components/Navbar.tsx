@@ -37,7 +37,7 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="mailto:thh241005@gmail.com?subject=Hire%20Me%20-%20Project%20Inquiry&body=Hi%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20Details%3A%0A"
               className="px-4 py-2 bg-owl-purple/20 border border-owl-purple text-owl-purple rounded-lg hover:bg-owl-purple hover:text-night-900 transition-all duration-300"
             >
               Hire Me
