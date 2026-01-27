@@ -1,5 +1,10 @@
 [
     {
+        "version": "v1.2.0",
+        "date": "Jan 28, 2026",
+        "description": "Update the Skin Database with the latest skins and guess pass skins return up to Season 70. Enhanced 'League Skin' to support vertical lists and array data. Removed 'Rework' column. Added 'Work In Progress' disclaimer banner. Implemented current season highlighting with 'NOW' badge."
+    },
+    {
         "version": "v1.1.0",
         "date": "Jan 28, 2026",
         "description": "Major Update: Added 'Season' column, 'Customize Columns' feature, and merged 'League Skin' display (aggregating multiple skins per league). Improved sticky header scrolling."

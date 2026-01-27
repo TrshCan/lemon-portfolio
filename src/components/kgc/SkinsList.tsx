@@ -164,6 +164,20 @@ export function SkinsList() {
         return processed;
     }, [rows]);
 
+    // Check for current season
+    const currentSeasonId = useMemo(() => {
+        const today = new Date();
+        // Since rows are sorted newest (future) first, we look for the first row where date <= today
+        for (const row of rows) {
+            if (!row.date) continue;
+            const rowDate = new Date(row.date);
+            if (rowDate <= today) {
+                return row.season;
+            }
+        }
+        return null;
+    }, [rows]);
+
     if (loading) return <div className="text-center p-10">Loading schedule...</div>;
     if (error) return <div className="text-center p-10 text-red-400">{error}</div>;
 
@@ -213,58 +227,64 @@ export function SkinsList() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-bg-700/50">
-                        {mergedData.map((row, index) => (
-                            <motion.tr
-                                key={index}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: index * 0.005 }}
-                                className="hover:bg-bg-700/30 transition-colors"
-                            >
-                                {COLUMNS.map(col => {
-                                    if (!visibleColumns.has(col.key)) return null;
+                        {mergedData.map((row, index) => {
+                            const isCurrent = row.season === currentSeasonId;
+                            return (
+                                <motion.tr
+                                    key={index}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: index * 0.005 }}
+                                    className={`hover:bg-bg-700/30 transition-colors ${isCurrent ? 'bg-accent-primary/10 relative z-30' : ''}`}
+                                >
+                                    {COLUMNS.map(col => {
+                                        if (!visibleColumns.has(col.key)) return null;
 
-                                    // Special rendering for Season (sticky)
-                                    if (col.key === 'season') {
+                                        // Special rendering for Season (sticky)
+                                        if (col.key === 'season') {
+                                            return (
+                                                <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-0 z-20 border-r border-bg-700/50 ${isCurrent ? 'bg-bg-800 mix-blend-normal' : 'bg-bg-800'} ${isCurrent ? '!bg-accent-primary/20 ring-inset ring-2 ring-accent-primary/50' : ''}`}>
+                                                    <div className="flex items-center gap-2">
+                                                        {row.season}
+                                                        {isCurrent && <span className="text-[10px] bg-accent-primary text-bg-900 px-1.5 py-0.5 rounded font-bold uppercase">Now</span>}
+                                                    </div>
+                                                </td>
+                                            );
+                                        }
+
+                                        // Special rendering for Date (sticky)
+                                        if (col.key === 'date') {
+                                            return (
+                                                <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-20 z-20 backdrop-blur-sm border-r border-bg-700/50 ${!visibleColumns.has('season') ? '!left-0' : ''} ${isCurrent ? 'bg-accent-primary/10' : 'bg-bg-800/80'}`}>
+                                                    {row.date}
+                                                </td>
+                                            );
+                                        }
+
+                                        // Special rendering for League Skin (Merged Cells)
+                                        if (col.key === 'leagueSkin') {
+                                            if (row.leagueSkinSpan === 0) return null; // Skip merged cells
+                                            return (
+                                                <td
+                                                    key={col.key}
+                                                    className={`px-4 py-3 align-middle font-medium text-blue-100/80 ${row.league ? 'border border-blue-500/30 bg-blue-500/5' : ''}`}
+                                                    rowSpan={row.leagueSkinSpan}
+                                                >
+                                                    {renderCellContent(row.leagueSkinDisplay)}
+                                                </td>
+                                            );
+                                        }
+
+                                        // Default rendering
                                         return (
-                                            <td key={col.key} className="px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-0 z-20 bg-bg-800 border-r border-bg-700/50">
-                                                {row.season}
+                                            <td key={col.key} className={`px-4 py-3 ${col.colorClass || 'text-text-secondary'}`}>
+                                                {renderCellContent(row[col.key] as string | string[] | number | null)}
                                             </td>
                                         );
-                                    }
-
-                                    // Special rendering for Date (sticky)
-                                    if (col.key === 'date') {
-                                        return (
-                                            <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-20 z-20 bg-bg-800/80 backdrop-blur-sm border-r border-bg-700/50 ${!visibleColumns.has('season') ? '!left-0' : ''}`}>
-                                                {row.date}
-                                            </td>
-                                        );
-                                    }
-
-                                    // Special rendering for League Skin (Merged Cells)
-                                    if (col.key === 'leagueSkin') {
-                                        if (row.leagueSkinSpan === 0) return null; // Skip merged cells
-                                        return (
-                                            <td
-                                                key={col.key}
-                                                className={`px-4 py-3 align-middle font-medium text-blue-100/80 ${row.league ? 'border border-blue-500/30 bg-blue-500/5' : ''}`}
-                                                rowSpan={row.leagueSkinSpan}
-                                            >
-                                                {renderCellContent(row.leagueSkinDisplay)}
-                                            </td>
-                                        );
-                                    }
-
-                                    // Default rendering
-                                    return (
-                                        <td key={col.key} className={`px-4 py-3 ${col.colorClass || 'text-text-secondary'}`}>
-                                            {renderCellContent(row[col.key] as string | string[] | number | null)}
-                                        </td>
-                                    );
-                                })}
-                            </motion.tr>
-                        ))}
+                                    })}
+                                </motion.tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
