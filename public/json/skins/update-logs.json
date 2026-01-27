@@ -1,5 +1,10 @@
 [
     {
+        "version": "v1.3.0",
+        "date": "Jan 28, 2026",
+        "description": "Improved mobile UX with a dedicated card view optimized for small screens. Desktop users still enjoy the full table view with all features intact. Enhanced visual design with better spacing and typography."
+    },
+    {
         "version": "v1.2.0",
         "date": "Jan 28, 2026",
         "description": "Update the Skin Database with the latest skins and guess pass skins return up to Season 70. Enhanced 'League Skin' to support vertical lists and array data. Removed 'Rework' column. Added 'Work In Progress' disclaimer banner. Implemented current season highlighting with 'NOW' badge."

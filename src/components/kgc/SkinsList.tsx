@@ -183,110 +183,209 @@ export function SkinsList() {
 
     return (
         <div className="space-y-4">
-            {/* Column Selector */}
-            <div className="relative inline-block text-left mb-4">
-                <button
-                    onClick={() => setShowColumnSelector(!showColumnSelector)}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-bg-800 border border-bg-700 rounded-lg text-sm font-medium hover:bg-bg-700 transition-colors"
-                >
-                    <span>Customize Columns</span>
-                    <span className="text-xs">▼</span>
-                </button>
+            {/* Mobile Card View - Hidden on desktop */}
+            <div className="block lg:hidden space-y-4">
+                {rows.map((row, index) => {
+                    const isCurrent = row.season === currentSeasonId;
+                    return (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.02 }}
+                            className={`rounded-xl border p-4 space-y-3 relative ${isCurrent
+                                    ? 'bg-accent-primary/10 border-accent-primary/50 shadow-lg shadow-accent-primary/20'
+                                    : 'bg-bg-800 border-bg-700'
+                                }`}
+                        >
+                            {/* Current Season Badge */}
+                            {isCurrent && (
+                                <div className="absolute top-0 right-0 bg-accent-primary text-bg-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                                    NOW
+                                </div>
+                            )}
 
-                {showColumnSelector && (
-                    <div className="absolute left-0 mt-2 w-56 bg-bg-800 border border-bg-700 rounded-xl shadow-xl z-50 p-2">
-                        <div className="space-y-1">
-                            {COLUMNS.map((col) => (
-                                <label key={col.key} className="flex items-center gap-2 px-2 py-1.5 hover:bg-bg-700 rounded cursor-pointer">
-                                    <input
-                                        type="checkbox"
-                                        checked={visibleColumns.has(col.key)}
-                                        onChange={() => toggleColumn(col.key)}
-                                        className="rounded border-bg-600 bg-bg-900 text-accent-primary focus:ring-accent-primary"
-                                    />
-                                    <span className="text-sm">{col.label}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                            {/* Season Header */}
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div className="text-xs text-text-secondary font-mono mb-1">{row.date}</div>
+                                    <div className="text-2xl font-bold text-white">Season {row.season}</div>
+                                </div>
+                                {row.league && (
+                                    <div className="text-xs text-blue-300 bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">
+                                        {row.league}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Main Skins Grid */}
+                            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-bg-700/50">
+                                <div className="space-y-1">
+                                    <div className="text-xs text-green-400 font-bold uppercase tracking-wide">Pass Skin</div>
+                                    <div className="text-sm font-medium text-white">{row.passSkin || "-"}</div>
+                                    {row.passReturn && (
+                                        <div className="text-xs text-green-400/70 mt-1">
+                                            Return: {renderCellContent(row.passReturn)}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="space-y-1">
+                                    <div className="text-xs text-yellow-400 font-bold uppercase tracking-wide">God Skin</div>
+                                    <div className="text-sm font-medium text-white">{row.godSkin || "-"}</div>
+                                    {row.godReturn && (
+                                        <div className="text-xs text-yellow-400/70 mt-1">
+                                            Return: {row.godReturn}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* League Skin */}
+                            {(Array.isArray(row.leagueSkin) ? row.leagueSkin.length > 0 : row.leagueSkin) && (
+                                <div className="space-y-1 pt-2 border-t border-bg-700/50">
+                                    <div className="text-xs text-blue-400 font-bold uppercase tracking-wide">League Skin</div>
+                                    <div className="text-sm text-blue-100">{renderCellContent(row.leagueSkin)}</div>
+                                </div>
+                            )}
+
+                            {/* Event & New Hero */}
+                            {(row.event || row.newHero) && (
+                                <div className="grid grid-cols-2 gap-3 pt-2 border-t border-bg-700/50">
+                                    {row.newHero && (
+                                        <div className="space-y-1">
+                                            <div className="text-xs text-text-primary font-bold uppercase tracking-wide">New Hero</div>
+                                            <div className="text-sm text-white">{row.newHero}</div>
+                                        </div>
+                                    )}
+                                    {row.event && (
+                                        <div className="space-y-1">
+                                            <div className="text-xs text-accent-primary font-bold uppercase tracking-wide">Event</div>
+                                            <div className="text-sm text-white">{row.event}</div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Legacy Rate Up */}
+                            {(Array.isArray(row.legacyRateUp) ? row.legacyRateUp.length > 0 : row.legacyRateUp) && (
+                                <div className="space-y-1 pt-2 border-t border-bg-700/50">
+                                    <div className="text-xs text-purple-400 font-bold uppercase tracking-wide">Legacy Rate Up</div>
+                                    <div className="text-sm text-purple-100">{renderCellContent(row.legacyRateUp)}</div>
+                                </div>
+                            )}
+                        </motion.div>
+                    );
+                })}
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-bg-700 bg-bg-800/50 shadow-xl max-h-[80vh]">
-                <table className="w-full text-left text-sm border-collapse min-w-[1500px]">
-                    <thead className="bg-bg-900 text-text-secondary uppercase text-xs font-bold sticky top-0 outline outline-1 outline-bg-700 z-40">
-                        <tr>
-                            {COLUMNS.map(col => visibleColumns.has(col.key) && (
-                                <th
-                                    key={col.key}
-                                    className={`px-4 py-4 bg-bg-900 ${col.key === 'date' ? 'sticky left-20 z-50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)] whitespace-nowrap' : col.key === 'season' ? 'sticky left-0 z-50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)] whitespace-nowrap' : ''} ${col.colorClass || ''}`}
-                                >
-                                    {col.label}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-bg-700/50">
-                        {mergedData.map((row, index) => {
-                            const isCurrent = row.season === currentSeasonId;
-                            return (
-                                <motion.tr
-                                    key={index}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: index * 0.005 }}
-                                    className={`hover:bg-bg-700/30 transition-colors ${isCurrent ? 'bg-accent-primary/10 relative z-30' : ''}`}
-                                >
-                                    {COLUMNS.map(col => {
-                                        if (!visibleColumns.has(col.key)) return null;
+            {/* Desktop Table View - Hidden on mobile */}
+            <div className="hidden lg:block space-y-4">
+                {/* Column Selector */}
+                <div className="relative inline-block text-left">
+                    <button
+                        onClick={() => setShowColumnSelector(!showColumnSelector)}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-bg-800 border border-bg-700 rounded-lg text-sm font-medium hover:bg-bg-700 transition-colors"
+                    >
+                        <span>Customize Columns</span>
+                        <span className="text-xs">▼</span>
+                    </button>
 
-                                        // Special rendering for Season (sticky)
-                                        if (col.key === 'season') {
+                    {showColumnSelector && (
+                        <div className="absolute left-0 mt-2 w-56 bg-bg-800 border border-bg-700 rounded-xl shadow-xl z-50 p-2">
+                            <div className="space-y-1">
+                                {COLUMNS.map((col) => (
+                                    <label key={col.key} className="flex items-center gap-2 px-2 py-1.5 hover:bg-bg-700 rounded cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={visibleColumns.has(col.key)}
+                                            onChange={() => toggleColumn(col.key)}
+                                            className="rounded border-bg-600 bg-bg-900 text-accent-primary focus:ring-accent-primary"
+                                        />
+                                        <span className="text-sm">{col.label}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Table */}
+                <div className="overflow-x-auto rounded-xl border border-bg-700 bg-bg-800/50 shadow-xl max-h-[80vh]">
+                    <table className="w-full text-left text-sm border-collapse min-w-[1500px]">
+                        <thead className="bg-bg-900 text-text-secondary uppercase text-xs font-bold sticky top-0 outline outline-1 outline-bg-700 z-40">
+                            <tr>
+                                {COLUMNS.map(col => visibleColumns.has(col.key) && (
+                                    <th
+                                        key={col.key}
+                                        className={`px-4 py-4 bg-bg-900 ${col.key === 'date' ? 'sticky left-20 z-50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)] whitespace-nowrap' : col.key === 'season' ? 'sticky left-0 z-50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)] whitespace-nowrap' : ''} ${col.colorClass || ''}`}
+                                    >
+                                        {col.label}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-bg-700/50">
+                            {mergedData.map((row, index) => {
+                                const isCurrent = row.season === currentSeasonId;
+                                return (
+                                    <motion.tr
+                                        key={index}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: index * 0.005 }}
+                                        className={`hover:bg-bg-700/30 transition-colors ${isCurrent ? 'bg-accent-primary/10 relative z-30' : ''}`}
+                                    >
+                                        {COLUMNS.map(col => {
+                                            if (!visibleColumns.has(col.key)) return null;
+
+                                            // Special rendering for Season (sticky)
+                                            if (col.key === 'season') {
+                                                return (
+                                                    <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-0 z-20 border-r border-bg-700/50 ${isCurrent ? 'bg-bg-800 mix-blend-normal' : 'bg-bg-800'} ${isCurrent ? '!bg-accent-primary/20 ring-inset ring-2 ring-accent-primary/50' : ''}`}>
+                                                        <div className="flex items-center gap-2">
+                                                            {row.season}
+                                                            {isCurrent && <span className="text-[10px] bg-accent-primary text-bg-900 px-1.5 py-0.5 rounded font-bold uppercase">Now</span>}
+                                                        </div>
+                                                    </td>
+                                                );
+                                            }
+
+                                            // Special rendering for Date (sticky)
+                                            if (col.key === 'date') {
+                                                return (
+                                                    <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-20 z-20 backdrop-blur-sm border-r border-bg-700/50 ${!visibleColumns.has('season') ? '!left-0' : ''} ${isCurrent ? 'bg-accent-primary/10' : 'bg-bg-800/80'}`}>
+                                                        {row.date}
+                                                    </td>
+                                                );
+                                            }
+
+                                            // Special rendering for League Skin (Merged Cells)
+                                            if (col.key === 'leagueSkin') {
+                                                if (row.leagueSkinSpan === 0) return null; // Skip merged cells
+                                                return (
+                                                    <td
+                                                        key={col.key}
+                                                        className={`px-4 py-3 align-middle font-medium text-blue-100/80 ${row.league ? 'border border-blue-500/30 bg-blue-500/5' : ''}`}
+                                                        rowSpan={row.leagueSkinSpan}
+                                                    >
+                                                        {renderCellContent(row.leagueSkinDisplay)}
+                                                    </td>
+                                                );
+                                            }
+
+                                            // Default rendering
                                             return (
-                                                <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-0 z-20 border-r border-bg-700/50 ${isCurrent ? 'bg-bg-800 mix-blend-normal' : 'bg-bg-800'} ${isCurrent ? '!bg-accent-primary/20 ring-inset ring-2 ring-accent-primary/50' : ''}`}>
-                                                    <div className="flex items-center gap-2">
-                                                        {row.season}
-                                                        {isCurrent && <span className="text-[10px] bg-accent-primary text-bg-900 px-1.5 py-0.5 rounded font-bold uppercase">Now</span>}
-                                                    </div>
+                                                <td key={col.key} className={`px-4 py-3 ${col.colorClass || 'text-text-secondary'}`}>
+                                                    {renderCellContent(row[col.key] as string | string[] | number | null)}
                                                 </td>
                                             );
-                                        }
-
-                                        // Special rendering for Date (sticky)
-                                        if (col.key === 'date') {
-                                            return (
-                                                <td key={col.key} className={`px-4 py-3 font-mono text-text-secondary whitespace-nowrap sticky left-20 z-20 backdrop-blur-sm border-r border-bg-700/50 ${!visibleColumns.has('season') ? '!left-0' : ''} ${isCurrent ? 'bg-accent-primary/10' : 'bg-bg-800/80'}`}>
-                                                    {row.date}
-                                                </td>
-                                            );
-                                        }
-
-                                        // Special rendering for League Skin (Merged Cells)
-                                        if (col.key === 'leagueSkin') {
-                                            if (row.leagueSkinSpan === 0) return null; // Skip merged cells
-                                            return (
-                                                <td
-                                                    key={col.key}
-                                                    className={`px-4 py-3 align-middle font-medium text-blue-100/80 ${row.league ? 'border border-blue-500/30 bg-blue-500/5' : ''}`}
-                                                    rowSpan={row.leagueSkinSpan}
-                                                >
-                                                    {renderCellContent(row.leagueSkinDisplay)}
-                                                </td>
-                                            );
-                                        }
-
-                                        // Default rendering
-                                        return (
-                                            <td key={col.key} className={`px-4 py-3 ${col.colorClass || 'text-text-secondary'}`}>
-                                                {renderCellContent(row[col.key] as string | string[] | number | null)}
-                                            </td>
-                                        );
-                                    })}
-                                </motion.tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                                        })}
+                                    </motion.tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
