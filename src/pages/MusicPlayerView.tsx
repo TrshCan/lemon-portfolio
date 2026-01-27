@@ -1,24 +1,24 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MusicPlayerProject } from "../components/projects/MusicPlayerProject";
 
 export function MusicPlayerView() {
-    const navigate = useNavigate();
-
     return (
-        <div className="min-h-screen bg-bg-900 text-text-primary p-6 md:p-12">
-            <div className="max-w-6xl mx-auto space-y-8">
-                <button
-                    onClick={() => navigate('/')}
-                    className="group flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors mb-4"
-                >
-                    <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    <span className="font-bold uppercase tracking-widest text-xs">Back to Home</span>
-                </button>
+        <div className="min-h-screen bg-bg-900 text-text-primary">
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-900/80 backdrop-blur-md border-b border-bg-700">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                    <Link to="/" className="flex items-center gap-2 group">
+                        <span className="text-2xl group-hover:-translate-x-1 transition-transform">
+                            ←
+                        </span>
+                        <span className="font-display font-bold">Back to Portfolio</span>
+                    </Link>
+                    <div className="text-accent-secondary font-bold">Harmony Player</div>
+                </div>
+            </nav>
 
+            <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <MusicPlayerProject />
-            </div>
+            </main>
         </div>
     );
 }

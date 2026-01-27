@@ -4,7 +4,7 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from "../ui/ScrollReveal"
 import { ProjectPlaceholder } from "../projects/ProjectPlaceholder";
 import { ProjectModal } from "../projects/ProjectModal";
 
-import { SmallProjectPrototypes } from "../projects/SmallProjectPrototypes";
+import { OtherProjectPrototypes } from "../projects/OtherProjectPrototypes";
 
 interface Project {
   title: string;
@@ -18,6 +18,41 @@ interface Project {
 }
 
 const projects: Project[] = [
+  {
+    title: "Lemon Portfolio",
+    description:
+      "A personal portfolio with a zesty twist, featuring dual themes (Sleepy & Lemonade), interactive projects, and a custom music player. Built with React, Vite, and Framer Motion.",
+    images: ["/projects/lemon-portfolio.png"],
+    tags: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind"],
+    githubUrl: "https://github.com/TrshCan/lemon-portfolio",
+    accent: "primary",
+    status: "completed",
+  },
+  {
+    title: "E-commerce Website",
+    description:
+      "A fully functional e-commerce website featuring product management, cart systems, and secure checkout. Built with Laravel and responsive design principles.",
+    images: [
+      "/projects/e-com1.png",
+      "/projects/e-com2.png",
+      "/projects/e-com3.png",
+      "/projects/e-com4.png",
+    ],
+    tags: ["Laravel", "JavaScript", "PHP", "Bootstrap", "HTML", "CSS", "MySQL"],
+    githubUrl: "https://github.com/TrshCan/BE2_NhomH.git",
+    accent: "secondary",
+    status: "completed",
+  },
+  {
+    title: "King God Card Duel",
+    description:
+      "A real-time multiplayer browser game with dynamic interactions and state management. Features complex game logic and persistent data storage.",
+    images: ["projects/kgc-card1.png"],
+    tags: ["React", "PHP", "MySQL", "JavaScript", "HTML", "Tailwind", "Node.js", "Socket.io"],
+    githubUrl: "https://github.com/TrshCan/FE2_DoAnNhom_KGC.git",
+    accent: "tertiary",
+    status: "in-progress",
+  },
   {
     title: "TDC SocialSphere",
     description:
@@ -37,31 +72,13 @@ const projects: Project[] = [
     githubUrl: "https://github.com/TrshCan/KingGodCastle",
     accent: "secondary",
     status: "in-progress",
-  },
-  {
-    title: "King God Castle Assets",
-    description:
-      "A platform for sharing and browsing King God Castle game assets. Explore hero images, icons, and other game resources.",
-    images: [], // Empty to test placeholder
-    tags: ["Coming Soon"],
-    accent: "tertiary",
-    status: "concept",
-  },
-  {
-    title: "King God Castle AI",
-    description:
-      "AI assistant for King God Castle. Answer questions about the game, suggest team compositions, and auto-play features. Premium subscription service.",
-    images: [], // Empty to test placeholder
-    tags: ["AI", "Premium"],
-    accent: "primary",
-    status: "concept",
-  },
+  }
 ];
 
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showSmallProjects, setShowSmallProjects] = useState(false);
+  const [showOtherProjects, setShowOtherProjects] = useState(false);
 
   const handleCardClick = (project: Project) => {
     setSelectedProject(project);
@@ -261,21 +278,21 @@ export function Projects() {
           project={selectedProject}
         />
 
-        {/* Small Projects Toggle */}
+        {/* Other Projects Toggle */}
         <div className="mt-20">
           <button
-            onClick={() => setShowSmallProjects(!showSmallProjects)}
+            onClick={() => setShowOtherProjects(!showOtherProjects)}
             className="group flex flex-col items-center mx-auto space-y-4 hover:opacity-100 transition-opacity"
           >
             <div className="flex items-center gap-3">
               <span className="w-12 h-[1px] bg-bg-700" />
               <span className="text-text-secondary text-sm font-bold tracking-widest uppercase">
-                Small Projects
+                Other Projects
               </span>
               <span className="w-12 h-[1px] bg-bg-700" />
             </div>
             <motion.div
-              animate={{ rotate: showSmallProjects ? 180 : 0 }}
+              animate={{ rotate: showOtherProjects ? 180 : 0 }}
               className="p-2 rounded-full bg-bg-900 border border-bg-700 group-hover:border-accent-primary transition-colors"
             >
               <svg
@@ -295,7 +312,7 @@ export function Projects() {
           </button>
 
           <AnimatePresence>
-            {showSmallProjects && (
+            {showOtherProjects && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
@@ -305,7 +322,7 @@ export function Projects() {
               >
                 <div className="pt-12">
                   <ScrollReveal>
-                    <SmallProjectPrototypes />
+                    <OtherProjectPrototypes />
                   </ScrollReveal>
                 </div>
               </motion.div>

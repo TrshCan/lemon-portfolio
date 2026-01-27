@@ -126,7 +126,7 @@ export function MusicPlayerProject() {
 
             <div className="flex flex-col lg:flex-row gap-8 relative z-10">
                 {/* Playlist Section */}
-                <div className="lg:w-1/3 flex flex-col h-[400px]">
+                <div className="lg:w-1/3 flex flex-col h-[300px] lg:h-[400px]">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-bold text-text-primary">Playlist</h3>
                         <span className="text-xs text-text-secondary bg-bg-800 px-2 py-1 rounded-full">{songs.length} Songs</span>
@@ -234,28 +234,28 @@ export function MusicPlayerProject() {
                                 </div>
                             </button>
 
-                            <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-4 sm:gap-6">
                                 <button
                                     onClick={prevSong}
-                                    className="p-3 text-text-primary hover:text-accent-primary transition-colors hover:scale-110 active:scale-90"
+                                    className="p-2 sm:p-3 text-text-primary hover:text-accent-primary transition-colors hover:scale-110 active:scale-90"
                                     title="Previous"
                                 >
-                                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                                     </svg>
                                 </button>
 
                                 <button
                                     onClick={togglePlay}
-                                    className="w-16 h-16 flex items-center justify-center bg-accent-primary text-bg-900 rounded-full hover:scale-105 transition-all shadow-lg active:scale-95 shadow-accent-primary/20"
+                                    className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-accent-primary text-bg-900 rounded-full hover:scale-105 transition-all shadow-lg active:scale-95 shadow-accent-primary/20"
                                     title={isPlaying ? "Pause" : "Play"}
                                 >
                                     {isPlaying ? (
-                                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
                                         </svg>
                                     ) : (
-                                        <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-6 h-6 sm:w-8 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M8 5v14l11-7z" />
                                         </svg>
                                     )}
@@ -263,10 +263,10 @@ export function MusicPlayerProject() {
 
                                 <button
                                     onClick={nextSong}
-                                    className="p-3 text-text-primary hover:text-accent-primary transition-colors hover:scale-110 active:scale-90"
+                                    className="p-2 sm:p-3 text-text-primary hover:text-accent-primary transition-colors hover:scale-110 active:scale-90"
                                     title="Next"
                                 >
-                                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                                     </svg>
                                 </button>

@@ -62,7 +62,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className={`bg-bg-800 border border-bg-700 rounded-3xl overflow-hidden shadow-2xl relative pointer-events-auto border-t-4 border-t-accent-${project.accent} ${hasImages ? 'max-w-3xl w-full' : 'max-w-2xl w-full'}`}
+                            className={`bg-bg-800 border border-bg-700 rounded-3xl overflow-hidden shadow-2xl relative pointer-events-auto border-t-4 border-t-accent-${project.accent} ${hasImages ? 'max-w-3xl w-full' : 'max-w-2xl w-full'} mx-auto max-h-[95vh] flex flex-col`}
                         >
                             {/* Close Button */}
                             <button
@@ -78,7 +78,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                             {hasImages ? (
                                 /* Image-based Layout (Banner) */
                                 <div className="flex flex-col">
-                                    <div className="relative h-64 md:h-96 overflow-hidden bg-bg-900 group/gallery">
+                                    <div className="relative h-48 sm:h-64 md:h-96 shrink-0 overflow-hidden bg-bg-900 group/gallery">
                                         <AnimatePresence mode="wait">
                                             <motion.img
                                                 key={currentImageIndex}
@@ -140,7 +140,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                                         </div>
                                     </div>
 
-                                    <div className="p-8 md:p-12 grid md:grid-cols-3 gap-8 overflow-y-auto max-h-[50vh]">
+                                    <div className="p-6 md:p-12 grid md:grid-cols-3 gap-8 overflow-y-auto custom-scrollbar">
                                         <div className="md:col-span-2 space-y-6">
                                             <p className="text-text-secondary text-lg leading-relaxed">
                                                 {project.description}

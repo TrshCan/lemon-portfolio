@@ -86,32 +86,60 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Overlay */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden py-4 border-t border-bg-700 bg-bg-800 rounded-b-xl"
+              initial={{ opacity: 0, x: "100%" }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-0 z-[60] bg-bg-900 flex flex-col p-8 md:hidden"
             >
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+              <div className="flex justify-between items-center mb-12">
+                <div className="flex items-center gap-2 text-xl font-bold">
+                  <span className="text-2xl">{theme === "dark" ? "😴" : "🍋"}</span>
+                  <span className="text-accent-primary">{theme === "dark" ? "Sleepy" : "Lemon"}</span>
+                </div>
+                <button
                   onClick={() => setIsOpen(false)}
-                  className="block py-2 text-text-secondary hover:text-accent-primary transition-colors duration-300"
+                  className="p-2 text-text-secondary hover:text-accent-primary bg-bg-800 rounded-full"
                 >
-                  {link.label}
-                </a>
-              ))}
-              <div className="pt-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="text-3xl font-black text-text-primary hover:text-accent-primary transition-colors flex items-center justify-between group"
+                  >
+                    <span>{link.label}</span>
+                    <span className="text-accent-primary opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  </motion.a>
+                ))}
+              </div>
+
+              <div className="mt-auto space-y-6">
+                <div className="h-px bg-bg-700 w-full" />
                 <a
-                  href="mailto:buianhkiet1234678@gmail.com?subject=Get%20In%20Touch&body=Hi%2C%0A%0AI%20would%20like%20to%20connect%20with%20you.%0A"
-                  className="block w-full text-center px-4 py-2 bg-accent-primary/20 border border-accent-primary text-accent-primary rounded-lg"
+                  href="mailto:buianhkiet1234678@gmail.com?subject=Get%20In%20Touch"
+                  className="block w-full text-center py-4 bg-accent-primary text-bg-900 font-bold rounded-xl shadow-lg shadow-accent-primary/20"
                 >
                   Get In Touch
                 </a>
+                <div className="flex justify-center gap-6 text-text-secondary">
+                  {/* Add social/contact hint if needed */}
+                  <p className="text-[10px] uppercase tracking-widest font-bold opacity-50">Squeeze the day 🍋</p>
+                </div>
               </div>
             </motion.div>
           )}
