@@ -1,0 +1,22 @@
+[
+    {
+        "version": "v1.1.0",
+        "date": "Jan 28, 2026",
+        "description": "Major Update: Added 'Season' column, 'Customize Columns' feature, and merged 'League Skin' display (aggregating multiple skins per league). Improved sticky header scrolling."
+    },
+    {
+        "version": "v1.0.2",
+        "date": "Jan 28, 2026",
+        "description": "Added Update Logs."
+    },
+    {
+        "version": "v1.0.1",
+        "date": "Jan 27, 2026",
+        "description": "Added comprehensive Skins Database with search and filter capabilities."
+    },
+    {
+        "version": "v1.0.0",
+        "date": "Jan 27, 2026",
+        "description": "Initial release of King God Castle Helper. Launched with basic navigation and placeholder tools."
+    }
+]

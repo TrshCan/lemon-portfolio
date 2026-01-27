@@ -3,6 +3,7 @@ import { Home } from "./pages/Home";
 import { WeatherView } from "./pages/WeatherView";
 import { MusicPlayerView } from "./pages/MusicPlayerView";
 import { KingGodCastleHelperView } from "./pages/KingGodCastleHelperView";
+import { SkinsPageView } from "./pages/SkinsPageView";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/weather" element={<WeatherView />} />
         <Route path="/music" element={<MusicPlayerView />} />
         <Route path="/kgc-helper" element={<KingGodCastleHelperView />} />
+        <Route path="/kgc-helper/skins" element={<SkinsPageView />} />
       </Routes>
     </BrowserRouter>
   );
