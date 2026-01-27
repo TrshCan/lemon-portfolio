@@ -1,6 +1,6 @@
-export function CoffeeCup() {
+export function CoffeeCup({ className = "w-32 h-32" }: { className?: string }) {
   return (
-    <div className="relative w-32 h-32 animate-float">
+    <div className={`relative animate-float ${className}`}>
       {/* Steam */}
       <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex gap-2">
         <div className="w-2 h-8 bg-linear-to-t from-accent-tertiary/50 to-transparent rounded-full animate-steam" />

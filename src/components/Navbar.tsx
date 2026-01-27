@@ -45,10 +45,10 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="mailto:buianhkiet1234678@gmail.com?subject=Hire%20Me%20-%20Project%20Inquiry&body=Hi%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20Details%3A%0A"
+              href="mailto:buianhkiet1234678@gmail.com?subject=Get%20In%20Touch&body=Hi%2C%0A%0AI%20would%20like%20to%20connect%20with%20you.%0A"
               className="px-4 py-2 bg-accent-primary/20 border border-accent-primary text-accent-primary rounded-lg hover:bg-accent-primary hover:text-bg-900 transition-all duration-300"
             >
-              Hire Me
+              Get In Touch
             </a>
             <ThemeToggle />
           </div>
@@ -107,10 +107,10 @@ export function Navbar() {
               ))}
               <div className="pt-4">
                 <a
-                  href="mailto:buianhkiet1234678@gmail.com?subject=Hire%20Me%20-%20Project%20Inquiry&body=Hi%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20Details%3A%0A"
+                  href="mailto:buianhkiet1234678@gmail.com?subject=Get%20In%20Touch&body=Hi%2C%0A%0AI%20would%20like%20to%20connect%20with%20you.%0A"
                   className="block w-full text-center px-4 py-2 bg-accent-primary/20 border border-accent-primary text-accent-primary rounded-lg"
                 >
-                  Hire Me
+                  Get In Touch
                 </a>
               </div>
             </motion.div>

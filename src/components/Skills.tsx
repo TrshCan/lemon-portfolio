@@ -9,7 +9,6 @@ const skillCategories = [
     skills: [
       "React",
       "TypeScript",
-      "Next.js",
       "Tailwind CSS",
       "Bootstrap",
       "HTML/CSS",
@@ -24,6 +23,7 @@ const skillCategories = [
       "Node.js",
       "NestJS",
       "Laravel",
+      "GraphQL",
       "PostgreSQL",
       "Prisma",
       "Zod",
@@ -39,7 +39,7 @@ const skillCategories = [
   },
 ];
 
-const learningSkills = ["Rust", "Go", "Kubernetes", "AWS", "GraphQL", "Redis"];
+const learningSkills = ["Redis"];
 
 export function Skills() {
   return (

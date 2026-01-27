@@ -32,7 +32,7 @@ export function Hero() {
             >
               <span className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" />
               <span className="text-text-secondary text-sm">
-                Available for freelance work
+                Currently working full-time
               </span>
             </motion.div>
 
@@ -117,7 +117,7 @@ export function Hero() {
             >
               <p className="text-text-secondary text-sm mb-4">Tech I work with:</p>
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                {["React", "TypeScript", "Node.js", "Next.js", "Tailwind"].map(
+                {["React", "TypeScript", "Node.js", "Laravel", "Tailwind"].map(
                   (tech) => (
                     <span
                       key={tech}

@@ -166,3 +166,108 @@ body {
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg) scale(0);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-500px) translateY(500px) rotate(-45deg) scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-shooting-star {
+  animation: shooting-star 2s linear infinite;
+}
+
+@keyframes bird-fly {
+  0% {
+    transform: translateX(-10vw) translateY(0);
+  }
+
+  50% {
+    transform: translateX(50vw) translateY(-20px);
+  }
+
+  100% {
+    transform: translateX(110vw) translateY(0);
+  }
+}
+
+.animate-bird-fly {
+  animation: bird-fly 15s linear infinite;
+}
+
+@keyframes bird-flap {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(0.4);
+  }
+}
+
+.animate-bird-flap {
+  animation: bird-flap 0.4s ease-in-out infinite;
+}
+
+@keyframes tree-sway {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.animate-tree-sway {
+  transform-origin: bottom center;
+  animation: tree-sway 4s ease-in-out infinite;
+}
+
+@keyframes swirl {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-swirl {
+  animation: swirl 20s linear infinite;
+}
+
+@keyframes sun-glow {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(40px);
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    filter: blur(60px);
+  }
+}
+
+.animate-sun-glow {
+  animation: sun-glow 4s ease-in-out infinite;
+}

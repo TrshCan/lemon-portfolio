@@ -338,10 +338,10 @@ export function Contact() {
                 <span className="w-3 h-3 bg-accent-primary rounded-full animate-pulse" />
                 <div>
                   <p className="text-text-primary font-semibold">
-                    Available for Freelance
+                    Currently Working Full-time
                   </p>
                   <p className="text-text-secondary text-sm">
-                    Open to new projects and collaborations
+                    Open to connecting and knowledge sharing
                   </p>
                 </div>
               </div>

@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "./ScrollReveal";
+import { ProjectPlaceholder } from "./ProjectPlaceholder";
+import { ProjectModal } from "./ProjectModal";
 
-const projects: {
+interface Project {
   title: string;
   description: string;
   image: string;
@@ -10,50 +13,59 @@ const projects: {
   githubUrl?: string;
   accent: string;
   status?: "completed" | "in-progress" | "concept";
-}[] = [
-    {
-      title: "King God Castle Toolkit",
-      description:
-        "A powerful desktop utility for King God Castle game. Download game versions and convert assets for Unity. Built with Tauri v2, Next.js 15, Rust, and TypeScript.",
-      image: "/projects/kgc-toolkit.png",
-      tags: ["Tauri", "Next.js", "Rust", "TypeScript"],
-      githubUrl: "https://github.com/nowl-it/King-God-Castle-Toolkit",
-      accent: "primary",
-      status: "completed",
-    },
-    {
-      title: "KGC Team Share",
-      description:
-        "Full-stack web app for creating, sharing, and discovering King God Castle team compositions. Features drag & drop team builder, community builds, and multi-language support.",
-      image: "/projects/kgc-team-share.png",
-      tags: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
-      liveUrl: "https://kgc-team-share.vercel.app",
-      githubUrl: "https://github.com/nowl-it/kgc-team-share",
-      accent: "secondary",
-      status: "completed",
-    },
-    {
-      title: "King God Castle Assets",
-      description:
-        "A platform for sharing and browsing King God Castle game assets. Explore hero images, icons, and other game resources.",
-      image: "/projects/kgc-assets.png",
-      tags: ["Coming Soon"],
-      accent: "tertiary",
-      status: "concept",
-    },
-    {
-      title: "King God Castle AI",
-      description:
-        "AI assistant for King God Castle. Answer questions about the game, suggest team compositions, and auto-play features. Premium subscription service.",
-      image: "/projects/kgc-ai.png",
-      tags: ["AI", "Premium"],
-      accent: "primary",
-      status: "concept",
-    },
-  ];
+}
+
+const projects: Project[] = [
+  {
+    title: "TDC SocialSphere",
+    description:
+      "A social web platform with post, comment, and like interactions, featuring role-based classrooms, surveys, and online exams. Built with React, Laravel, and GraphQL.",
+    image: "/projects/TDC-SocialSphere.png",
+    tags: ["React", "Laravel", "GraphQL", "JavaScript", "Tailwind"],
+    githubUrl: "https://github.com/TrshCan/CDWeb_NhomH_DoAnWebEL",
+    accent: "primary",
+    status: "completed",
+  },
+  {
+    title: "King God Castle Web Game",
+    description:
+      "A fan-made, text-based 2D web MMORPG inspired by King God Castle, featuring hero summoning, equipment systems, expeditions, and long-term progression. Currently in active development.",
+    image: "/projects/kgc.png",
+    tags: ["React", "Laravel", "GraphQL", "JavaScript", "Tailwind"],
+    githubUrl: "https://github.com/TrshCan/KingGodCastle",
+    accent: "secondary",
+    status: "in-progress",
+  },
+  {
+    title: "King God Castle Assets",
+    description:
+      "A platform for sharing and browsing King God Castle game assets. Explore hero images, icons, and other game resources.",
+    image: "", // Empty to test placeholder
+    tags: ["Coming Soon"],
+    accent: "tertiary",
+    status: "concept",
+  },
+  {
+    title: "King God Castle AI",
+    description:
+      "AI assistant for King God Castle. Answer questions about the game, suggest team compositions, and auto-play features. Premium subscription service.",
+    image: "", // Empty to test placeholder
+    tags: ["AI", "Premium"],
+    accent: "primary",
+    status: "concept",
+  },
+];
 
 export function Projects() {
-  // Nếu chưa có project nào, hiển thị placeholder
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCardClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  // Nếu chưa có project nào, hiển thị placeholder chung
   if (projects.length === 0) {
     return (
       <section id="projects" className="py-20 relative bg-bg-800/30 transition-colors duration-300">
@@ -132,16 +144,15 @@ export function Projects() {
           {projects.map((project) => (
             <StaggerItem key={project.title}>
               <motion.article
-                className="group bg-bg-900 rounded-2xl overflow-hidden border border-bg-700 hover:border-accent-primary transition-all duration-300 h-full cursor-pointer"
+                onClick={() => handleCardClick(project)}
+                className={`group bg-bg-900 rounded-2xl overflow-hidden border border-bg-700 hover:border-accent-${project.accent} transition-all duration-300 h-full cursor-pointer`}
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
-                  {project.status === "concept" ? (
-                    <div className="w-full h-full bg-linear-to-br from-bg-800 to-bg-700 flex items-center justify-center">
-                      <span className="text-6xl">💡</span>
-                    </div>
+                  {!project.image ? (
+                    <ProjectPlaceholder accent={project.accent} />
                   ) : (
                     <img
                       src={project.image}
@@ -153,12 +164,12 @@ export function Projects() {
 
                   {/* Status badge */}
                   {project.status === "concept" && (
-                    <div className="absolute top-3 right-3 px-3 py-1 bg-accent-tertiary/20 border border-accent-tertiary rounded-full text-accent-tertiary text-xs font-medium">
+                    <div className={`absolute top-3 right-3 px-3 py-1 bg-accent-${project.accent}/20 border border-accent-${project.accent} rounded-full text-accent-${project.accent} text-xs font-medium`}>
                       💡 Concept
                     </div>
                   )}
                   {project.status === "in-progress" && (
-                    <div className="absolute top-3 right-3 px-3 py-1 bg-accent-secondary/20 border border-accent-secondary rounded-full text-accent-secondary text-xs font-medium">
+                    <div className={`absolute top-3 right-3 px-3 py-1 bg-accent-${project.accent}/20 border border-accent-${project.accent} rounded-full text-accent-${project.accent} text-xs font-medium`}>
                       🚧 In Progress
                     </div>
                   )}
@@ -166,13 +177,14 @@ export function Projects() {
                   {/* Overlay links - only for completed projects */}
                   {project.status !== "concept" &&
                     (project.liveUrl || project.githubUrl) && (
-                      <div className="absolute inset-0 bg-bg-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                      <div className="absolute inset-0 bg-bg-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
                         {project.liveUrl && (
                           <a
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-12 h-12 bg-accent-primary rounded-full flex items-center justify-center text-bg-900 hover:scale-110 transition-transform"
+                            onClick={(e) => e.stopPropagation()}
+                            className={`w-12 h-12 bg-accent-${project.accent} rounded-full flex items-center justify-center text-bg-900 hover:scale-110 transition-transform`}
                             title="View Live"
                           >
                             <svg
@@ -195,6 +207,7 @@ export function Projects() {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
                             className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-bg-900 hover:scale-110 transition-transform"
                             title="View Code"
                           >
@@ -238,6 +251,12 @@ export function Projects() {
             </StaggerItem>
           ))}
         </StaggerContainer>
+
+        <ProjectModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          project={selectedProject}
+        />
       </div>
     </section>
   );
