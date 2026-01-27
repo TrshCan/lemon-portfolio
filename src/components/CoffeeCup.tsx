@@ -3,13 +3,13 @@ export function CoffeeCup() {
     <div className="relative w-32 h-32 animate-float">
       {/* Steam */}
       <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex gap-2">
-        <div className="w-2 h-8 bg-linear-to-t from-coffee-light/50 to-transparent rounded-full animate-steam" />
+        <div className="w-2 h-8 bg-linear-to-t from-accent-tertiary/50 to-transparent rounded-full animate-steam" />
         <div
-          className="w-2 h-8 bg-linear-to-t from-coffee-light/50 to-transparent rounded-full animate-steam"
+          className="w-2 h-8 bg-linear-to-t from-accent-tertiary/50 to-transparent rounded-full animate-steam"
           style={{ animationDelay: "0.3s" }}
         />
         <div
-          className="w-2 h-8 bg-linear-to-t from-coffee-light/50 to-transparent rounded-full animate-steam"
+          className="w-2 h-8 bg-linear-to-t from-accent-tertiary/50 to-transparent rounded-full animate-steam"
           style={{ animationDelay: "0.6s" }}
         />
       </div>
@@ -45,7 +45,7 @@ export function CoffeeCup() {
       </svg>
 
       {/* Glow effect */}
-      <div className="absolute inset-0 bg-owl-amber/20 blur-xl rounded-full" />
+      <div className="absolute inset-0 bg-accent-tertiary/20 blur-xl rounded-full" />
     </div>
   );
 }

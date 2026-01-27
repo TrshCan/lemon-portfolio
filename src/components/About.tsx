@@ -1,16 +1,22 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "./ScrollReveal";
+import { useTheme } from "./ThemeContext";
+import { WIPModal } from "./WIPModal";
 
 export function About() {
+  const { theme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="about" className="py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <ScrollReveal className="text-center mb-16">
-          <span className="text-owl-cyan font-display text-sm tracking-wider">
+          <span className="text-accent-primary font-display text-sm tracking-wider">
             ABOUT ME
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-text-primary">
             The Developer Behind the Screen
           </h2>
         </ScrollReveal>
@@ -18,56 +24,49 @@ export function About() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image/Illustration side */}
           <ScrollReveal direction="left">
-            <div className="relative bg-linear-to-br from-night-800 to-night-700 rounded-2xl p-8 border border-night-600">
+            <div className="relative bg-bg-800 rounded-2xl p-8 border border-bg-700">
               {/* Terminal window */}
-              <div className="bg-night-900 rounded-lg overflow-hidden">
+              <div className="bg-bg-900 rounded-lg overflow-hidden border border-bg-700/50 shadow-2xl">
                 {/* Terminal header */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-night-800 border-b border-night-700">
-                  <div className="w-3 h-3 rounded-full bg-owl-pink" />
-                  <div className="w-3 h-3 rounded-full bg-owl-yellow" />
-                  <div className="w-3 h-3 rounded-full bg-owl-green" />
-                  <span className="ml-4 text-night-500 text-sm font-display">
-                    ~/night-owl/about.ts
+                <div className="flex items-center gap-2 px-4 py-3 bg-bg-800 border-b border-bg-700">
+                  <div className="w-3 h-3 rounded-full bg-accent-tertiary" />
+                  <div className="w-3 h-3 rounded-full bg-accent-secondary" />
+                  <div className="w-3 h-3 rounded-full bg-accent-primary" />
+                  <span className="ml-4 text-text-secondary text-sm font-display">
+                    ~/lemon-dev/about.ts
                   </span>
                 </div>
 
                 {/* Terminal content */}
                 <div className="p-4 font-display text-sm leading-relaxed">
                   <p>
-                    <span className="text-owl-purple">interface</span>{" "}
-                    <span className="text-owl-yellow">Developer</span> {"{"}
+                    <span className="text-accent-primary">interface</span>{" "}
+                    <span className="text-accent-secondary">Developer</span> {"{"}
                   </p>
                   <p className="pl-4">
-                    <span className="text-owl-blue">name</span>:{" "}
-                    <span className="text-owl-green">"Night OwL"</span>;
+                    <span className="text-accent-secondary">name</span>:{" "}
+                    <span className="text-accent-primary">"{theme === "dark" ? "Sleepy" : "Lemon"} Dev"</span>;
                   </p>
                   <p className="pl-4">
-                    <span className="text-owl-blue">role</span>:{" "}
-                    <span className="text-owl-green">"Web Developer"</span>;
+                    <span className="text-accent-secondary">role</span>:{" "}
+                    <span className="text-accent-primary">"Web Developer"</span>;
                   </p>
                   <p className="pl-4">
-                    <span className="text-owl-blue">status</span>:{" "}
-                    <span className="text-owl-green">"Student"</span>;
+                    <span className="text-accent-secondary">location</span>:{" "}
+                    <span className="text-accent-primary">"Vietnam 🇻🇳"</span>;
                   </p>
                   <p className="pl-4">
-                    <span className="text-owl-blue">location</span>:{" "}
-                    <span className="text-owl-green">"Vietnam 🇻🇳"</span>;
+                    <span className="text-accent-secondary">{theme === "dark" ? "coffeePerDay" : "lemonadePerDay"}</span>:{" "}
+                    <span className="text-accent-tertiary">Infinity</span>;
                   </p>
                   <p className="pl-4">
-                    <span className="text-owl-blue">coffeePerDay</span>:{" "}
-                    <span className="text-owl-amber">Infinity</span>;
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-owl-blue">passions</span>: [
+                    <span className="text-accent-secondary">passions</span>: [
                   </p>
                   <p className="pl-8">
-                    <span className="text-owl-green">"Clean Code"</span>,
+                    <span className="text-accent-primary">"Clean Code"</span>,
                   </p>
                   <p className="pl-8">
-                    <span className="text-owl-green">"UI/UX Design"</span>,
-                  </p>
-                  <p className="pl-8">
-                    <span className="text-owl-green">"Learning New Tech"</span>
+                    <span className="text-accent-primary">"UI/UX Design"</span>
                   </p>
                   <p className="pl-4">];</p>
                   <p>{"}"}</p>
@@ -75,43 +74,42 @@ export function About() {
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-owl-purple/20 rounded-full blur-xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-owl-cyan/20 rounded-full blur-xl" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent-primary/10 rounded-full blur-xl" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent-secondary/10 rounded-full blur-xl" />
             </div>
           </ScrollReveal>
 
           {/* Text content side */}
           <ScrollReveal direction="right" delay={0.2}>
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Coding When The World Sleeps 🌙
+            <h3 className="text-2xl font-bold text-text-primary mb-4">
+              {theme === "dark" ? "Dreaming Up Better Code 🌙" : "Squeezing Every Drop of Creativity 🍋"}
             </h3>
 
-            <div className="space-y-4 text-night-500 leading-relaxed">
+            <div className="space-y-4 text-text-secondary leading-relaxed">
               <p>
-                While most people are dreaming, I'm turning dreams into reality
-                through code. There's something magical about the quiet hours of
-                the night - just me, my keyboard, and an endless cup of coffee.
+                {theme === "dark" ? (
+                  "Just like a calm night brings clarity, I find peace in writing clean and focused code. I specialize in turning complex requirements into seamless digital experiences."
+                ) : (
+                  "Just like a fresh lemon adds zest to any dish, I bring a fresh perspective to every project I work on. There's something magical about turning ideas into clean, functional code."
+                )}
               </p>
               <p>
-                As a <span className="text-owl-cyan">full-stack developer</span>
+                As a <span className="text-accent-primary">full-stack developer</span>
                 , I specialize in building modern web applications with{" "}
-                <span className="text-owl-purple">React</span>,
-                <span className="text-owl-blue"> TypeScript</span>, and
-                <span className="text-owl-green"> Node.js</span>. I believe in
-                writing clean, maintainable code that not only works but is a
-                joy to read.
+                <span className="text-accent-secondary">React</span>,
+                <span className="text-accent-secondary"> TypeScript</span>,
+                <span className="text-accent-primary"> Laravel</span>, and
+                <span className="text-accent-primary"> Node.js</span>.
               </p>
               <p>
-                When I'm not coding, you'll find me exploring new technologies,
-                contributing to open source, or searching for the perfect brew
-                to fuel my late-night sessions.
+                When I'm not coding, I'm {theme === "dark" ? "enjoying the quiet of the night" : "exploring new technologies"} or searching for the perfect {theme === "dark" ? "brew" : "squeeze"} to fuel my next project.
               </p>
             </div>
 
             {/* CTA */}
-            <motion.a
-              href="/Tran-Huy-Hoang.pdf"
-              className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-night-800 border border-night-600 rounded-lg text-white hover:border-owl-purple hover:text-owl-purple transition-colors duration-300"
+            <motion.button
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-bg-800 border border-bg-700 rounded-lg text-text-primary hover:border-accent-primary hover:text-accent-primary transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -129,10 +127,11 @@ export function About() {
                 />
               </svg>
               Download Resume
-            </motion.a>
+            </motion.button>
           </ScrollReveal>
         </div>
       </div>
+      <WIPModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

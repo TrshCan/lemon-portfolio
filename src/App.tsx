@@ -9,7 +9,7 @@ import { Footer } from "./components/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen bg-night-900 text-white relative">
+    <div className="min-h-screen bg-bg-900 text-text-primary relative transition-colors duration-300">
       {/* Background stars */}
       <Stars />
 

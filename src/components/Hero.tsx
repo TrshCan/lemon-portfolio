@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { OwlIcon } from "./OwlIcon";
+import { LemonIcon } from "./LemonIcon";
 import { CoffeeCup } from "./CoffeeCup";
+import { Lemonade } from "./Lemonade";
+import { useTheme } from "./ThemeContext";
+import { WIPModal } from "./WIPModal";
 
 export function Hero() {
+  const { theme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section
       id="home"
@@ -18,13 +25,13 @@ export function Hero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 bg-night-800 rounded-full border border-night-600 mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-bg-800 rounded-full border border-bg-700 mb-6"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <span className="w-2 h-2 bg-owl-green rounded-full animate-pulse" />
-              <span className="text-night-500 text-sm">
+              <span className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" />
+              <span className="text-text-secondary text-sm">
                 Available for freelance work
               </span>
             </motion.div>
@@ -35,24 +42,37 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              <span className="text-white">Hello, I'm a</span>
+              <span className="text-text-primary">Hello, I'm a</span>
               <br />
-              <span className="text-owl-cyan glow-text">Night OwL</span>
+              <span className="text-accent-primary glow-text">
+                {theme === "dark" ? "Sleepy" : "Lemonade"}
+              </span>
               <br />
-              <span className="text-owl-purple">Developer</span>
-              <span className="text-owl-amber animate-blink">_</span>
+              <span className="text-accent-secondary">Developer</span>
+              <span className="text-accent-tertiary animate-blink">_</span>
             </motion.h1>
 
             <motion.p
-              className="text-night-500 text-lg mb-8 max-w-lg mx-auto lg:mx-0"
+              className="text-text-secondary text-lg mb-8 max-w-lg mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              I craft beautiful web experiences while the world sleeps. Fueled
-              by <span className="text-coffee-light">☕ coffee</span> and
-              inspired by the <span className="text-owl-yellow">🌙 night</span>,
-              I turn ideas into elegant code.
+              {theme === "dark" ? (
+                <>
+                  Crafting dreams into digital reality. Fueled by{" "}
+                  <span className="text-accent-tertiary">☕ midnight coffee</span>,
+                  inspired by <span className="text-accent-primary">quiet moments</span>,
+                  turning complex problems into elegant solutions.
+                </>
+              ) : (
+                <>
+                  I craft beautiful web experiences with a zesty twist. Fueled
+                  by <span className="text-accent-secondary">🍋 fresh lemonade</span>,
+                  inspired by <span className="text-accent-primary">fresh ideas</span>,
+                  I turn concepts into elegant code.
+                </>
+              )}
             </motion.p>
 
             <motion.div
@@ -63,14 +83,13 @@ export function Hero() {
             >
               <a
                 href="#projects"
-                className="px-8 py-3 bg-owl-cyan text-night-900 font-semibold rounded-lg hover:bg-owl-green transition-colors duration-300 shadow-lg shadow-owl-cyan/20"
+                className="px-8 py-3 bg-accent-primary text-bg-900 font-semibold rounded-lg hover:bg-accent-secondary transition-colors duration-300 shadow-lg shadow-accent-primary/20"
               >
                 View My Work
               </a>
-              <a
-                href="/Tran-Huy-Hoang.pdf"
-                download
-                className="px-8 py-3 border border-owl-purple text-owl-purple font-semibold rounded-lg hover:bg-owl-purple/10 transition-colors duration-300 inline-flex items-center justify-center gap-2"
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-8 py-3 border border-accent-secondary text-accent-secondary font-semibold rounded-lg hover:bg-accent-secondary/10 transition-colors duration-300 inline-flex items-center justify-center gap-2"
               >
                 <svg
                   className="w-5 h-5"
@@ -86,7 +105,7 @@ export function Hero() {
                   />
                 </svg>
                 Download CV
-              </a>
+              </button>
             </motion.div>
 
             {/* Tech stack */}
@@ -96,13 +115,13 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 0.6 }}
             >
-              <p className="text-night-600 text-sm mb-4">Tech I work with:</p>
+              <p className="text-text-secondary text-sm mb-4">Tech I work with:</p>
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                 {["React", "TypeScript", "Node.js", "Next.js", "Tailwind"].map(
                   (tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-night-800 border border-night-600 rounded-md text-sm text-night-500 hover:border-owl-cyan hover:text-owl-cyan transition-colors duration-300"
+                      className="px-3 py-1 bg-bg-800 border border-bg-700 rounded-md text-sm text-text-secondary hover:border-accent-primary hover:text-accent-primary transition-colors duration-300"
                     >
                       {tech}
                     </span>
@@ -121,34 +140,42 @@ export function Hero() {
           >
             <div className="relative">
               {/* Glow background */}
-              <div className="absolute inset-0 bg-owl-purple/20 blur-3xl rounded-full" />
+              <div className="absolute inset-0 bg-accent-primary/20 blur-3xl rounded-full" />
 
-              {/* Owl */}
-              <OwlIcon className="w-64 h-64 lg:w-80 lg:h-80 animate-float relative z-10" />
+              {/* Lemon mascot */}
+              <LemonIcon className="w-64 h-64 lg:w-80 lg:h-80 animate-float relative z-10" />
 
-              {/* Coffee positioned near the owl */}
+              {/* Thematic Content: Coffee (Dark) vs Lemonade (Light) */}
               <div className="absolute -right-8 bottom-0">
-                <CoffeeCup />
+                {theme === "dark" ? <CoffeeCup /> : <Lemonade />}
               </div>
 
-              {/* Moon */}
-              <div className="absolute -top-8 -right-8 w-20 h-20 bg-owl-yellow rounded-full shadow-lg shadow-owl-yellow/50">
-                <div className="absolute top-2 right-2 w-16 h-16 bg-night-900 rounded-full" />
+              {/* Thematic Decoration: Moon (Dark) vs Sun (Light) */}
+              <div className="absolute -top-8 -right-8 w-20 h-20 bg-accent-tertiary rounded-full shadow-lg shadow-accent-tertiary/50 overflow-hidden">
+                {theme === "dark" ? (
+                  /* Moon */
+                  <div className="w-full h-full relative bg-accent-secondary">
+                    <div className="absolute -top-2 -left-2 w-16 h-16 bg-bg-900 rounded-full" />
+                  </div>
+                ) : (
+                  /* Sun */
+                  <div className="absolute inset-2 bg-accent-primary rounded-full" />
+                )}
               </div>
 
               {/* Code snippets floating */}
-              <div className="absolute -left-12 top-1/4 px-3 py-2 bg-night-800/90 backdrop-blur rounded-lg border border-night-600 font-display text-sm">
-                <span className="text-owl-purple">const</span>{" "}
-                <span className="text-owl-blue">sleep</span>{" "}
-                <span className="text-white">=</span>{" "}
-                <span className="text-owl-amber">false</span>
-                <span className="text-white">;</span>
+              <div className="absolute -left-12 top-1/4 px-3 py-2 bg-bg-800/90 backdrop-blur rounded-lg border border-bg-700 font-display text-sm z-20">
+                <span className="text-accent-primary">const</span>{" "}
+                <span className="text-accent-tertiary">{theme === "dark" ? "cozy" : "fresh"}</span>{" "}
+                <span className="text-text-primary">=</span>{" "}
+                <span className="text-accent-secondary">true</span>
+                <span className="text-text-primary">;</span>
               </div>
 
-              <div className="absolute -right-16 top-1/3 px-3 py-2 bg-night-800/90 backdrop-blur rounded-lg border border-night-600 font-display text-sm">
-                <span className="text-owl-pink">{"// TODO:"}</span>
+              <div className="absolute -right-16 top-1/3 px-3 py-2 bg-bg-800/90 backdrop-blur rounded-lg border border-bg-700 font-display text-sm z-20">
+                <span className="text-accent-secondary">// TODO:</span>
                 <br />
-                <span className="text-night-500">{"// more coffee"}</span>
+                <span className="text-text-secondary">{theme === "dark" ? "// stay sleepy" : "// squeeze more"}</span>
               </div>
             </div>
           </motion.div>
@@ -162,11 +189,12 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
       >
-        <span className="text-night-600 text-sm">Scroll down</span>
-        <div className="w-6 h-10 border-2 border-night-600 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-owl-cyan rounded-full mt-2 animate-bounce" />
+        <span className="text-text-secondary text-sm">Scroll down</span>
+        <div className="w-6 h-10 border-bg-700 rounded-full flex justify-center border-2">
+          <div className="w-1 h-3 bg-accent-primary rounded-full mt-2 animate-bounce" />
         </div>
       </motion.div>
+      <WIPModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

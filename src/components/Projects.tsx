@@ -8,73 +8,73 @@ const projects: {
   tags: string[];
   liveUrl?: string;
   githubUrl?: string;
-  color: string;
+  accent: string;
   status?: "completed" | "in-progress" | "concept";
 }[] = [
-  {
-    title: "King God Castle Toolkit",
-    description:
-      "A powerful desktop utility for King God Castle game. Download game versions and convert assets for Unity. Built with Tauri v2, Next.js 15, Rust, and TypeScript.",
-    image: "/projects/kgc-toolkit.png",
-    tags: ["Tauri", "Next.js", "Rust", "TypeScript"],
-    githubUrl: "https://github.com/nowl-it/King-God-Castle-Toolkit",
-    color: "owl-cyan",
-    status: "completed",
-  },
-  {
-    title: "KGC Team Share",
-    description:
-      "Full-stack web app for creating, sharing, and discovering King God Castle team compositions. Features drag & drop team builder, community builds, and multi-language support.",
-    image: "/projects/kgc-team-share.png",
-    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
-    liveUrl: "https://kgc-team-share.vercel.app",
-    githubUrl: "https://github.com/nowl-it/kgc-team-share",
-    color: "owl-purple",
-    status: "completed",
-  },
-  {
-    title: "King God Castle Assets",
-    description:
-      "A platform for sharing and browsing King God Castle game assets. Explore hero images, icons, and other game resources.",
-    image: "/projects/kgc-assets.png",
-    tags: ["Coming Soon"],
-    color: "owl-amber",
-    status: "concept",
-  },
-  {
-    title: "King God Castle AI",
-    description:
-      "AI assistant for King God Castle. Answer questions about the game, suggest team compositions, and auto-play features. Premium subscription service.",
-    image: "/projects/kgc-ai.png",
-    tags: ["AI", "Premium"],
-    color: "owl-green",
-    status: "concept",
-  },
-];
+    {
+      title: "King God Castle Toolkit",
+      description:
+        "A powerful desktop utility for King God Castle game. Download game versions and convert assets for Unity. Built with Tauri v2, Next.js 15, Rust, and TypeScript.",
+      image: "/projects/kgc-toolkit.png",
+      tags: ["Tauri", "Next.js", "Rust", "TypeScript"],
+      githubUrl: "https://github.com/nowl-it/King-God-Castle-Toolkit",
+      accent: "primary",
+      status: "completed",
+    },
+    {
+      title: "KGC Team Share",
+      description:
+        "Full-stack web app for creating, sharing, and discovering King God Castle team compositions. Features drag & drop team builder, community builds, and multi-language support.",
+      image: "/projects/kgc-team-share.png",
+      tags: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
+      liveUrl: "https://kgc-team-share.vercel.app",
+      githubUrl: "https://github.com/nowl-it/kgc-team-share",
+      accent: "secondary",
+      status: "completed",
+    },
+    {
+      title: "King God Castle Assets",
+      description:
+        "A platform for sharing and browsing King God Castle game assets. Explore hero images, icons, and other game resources.",
+      image: "/projects/kgc-assets.png",
+      tags: ["Coming Soon"],
+      accent: "tertiary",
+      status: "concept",
+    },
+    {
+      title: "King God Castle AI",
+      description:
+        "AI assistant for King God Castle. Answer questions about the game, suggest team compositions, and auto-play features. Premium subscription service.",
+      image: "/projects/kgc-ai.png",
+      tags: ["AI", "Premium"],
+      accent: "primary",
+      status: "concept",
+    },
+  ];
 
 export function Projects() {
   // Nếu chưa có project nào, hiển thị placeholder
   if (projects.length === 0) {
     return (
-      <section id="projects" className="py-20 relative bg-night-800/30">
+      <section id="projects" className="py-20 relative bg-bg-800/30 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal className="text-center mb-16">
-            <span className="text-owl-cyan font-display text-sm tracking-wider">
+            <span className="text-accent-primary font-display text-sm tracking-wider">
               MY WORK
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-white">
+            <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-text-primary">
               Projects
             </h2>
-            <p className="text-night-500 mt-4 max-w-2xl mx-auto">
+            <p className="text-text-secondary mt-4 max-w-2xl mx-auto">
               I'm currently working on some exciting projects. Stay tuned! 🚀
             </p>
           </ScrollReveal>
 
           <ScrollReveal>
-            <div className="text-center py-16 bg-night-900/50 rounded-2xl border border-night-700 border-dashed">
+            <div className="text-center py-16 bg-bg-900/50 rounded-2xl border border-bg-700 border-dashed">
               <div className="text-6xl mb-4">🛠️</div>
-              <h3 className="text-xl font-bold text-white mb-2">Coming Soon</h3>
-              <p className="text-night-500 max-w-md mx-auto">
+              <h3 className="text-xl font-bold text-text-primary mb-2">Coming Soon</h3>
+              <p className="text-text-secondary max-w-md mx-auto">
                 I'm a student working on various projects. Check back soon or
                 visit my GitHub to see what I'm building!
               </p>
@@ -82,7 +82,7 @@ export function Projects() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-6 px-6 py-3 border border-owl-cyan text-owl-cyan rounded-lg hover:bg-owl-cyan hover:text-night-900 transition-colors duration-300"
+                className="inline-flex items-center gap-2 mt-6 px-6 py-3 border border-accent-primary text-accent-primary rounded-lg hover:bg-accent-primary hover:text-bg-900 transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -109,17 +109,17 @@ export function Projects() {
   }
 
   return (
-    <section id="projects" className="py-20 relative bg-night-800/30">
+    <section id="projects" className="py-20 relative bg-bg-800/30 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <ScrollReveal className="text-center mb-16">
-          <span className="text-owl-cyan font-display text-sm tracking-wider">
+          <span className="text-accent-primary font-display text-sm tracking-wider">
             MY WORK
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-text-primary">
             Projects
           </h2>
-          <p className="text-night-500 mt-4 max-w-2xl mx-auto">
+          <p className="text-text-secondary mt-4 max-w-2xl mx-auto">
             Here are some projects I've been working on
           </p>
         </ScrollReveal>
@@ -132,14 +132,14 @@ export function Projects() {
           {projects.map((project) => (
             <StaggerItem key={project.title}>
               <motion.article
-                className="group bg-night-900 rounded-2xl overflow-hidden border border-night-700 hover:border-night-500 transition-all duration-300 h-full"
+                className="group bg-bg-900 rounded-2xl overflow-hidden border border-bg-700 hover:border-accent-primary transition-all duration-300 h-full cursor-pointer"
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   {project.status === "concept" ? (
-                    <div className="w-full h-full bg-gradient-to-br from-night-800 to-night-700 flex items-center justify-center">
+                    <div className="w-full h-full bg-linear-to-br from-bg-800 to-bg-700 flex items-center justify-center">
                       <span className="text-6xl">💡</span>
                     </div>
                   ) : (
@@ -149,16 +149,16 @@ export function Projects() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   )}
-                  <div className="absolute inset-0 bg-linear-to-t from-night-900 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-bg-900 via-transparent to-transparent" />
 
                   {/* Status badge */}
                   {project.status === "concept" && (
-                    <div className="absolute top-3 right-3 px-3 py-1 bg-owl-amber/20 border border-owl-amber rounded-full text-owl-amber text-xs font-medium">
+                    <div className="absolute top-3 right-3 px-3 py-1 bg-accent-tertiary/20 border border-accent-tertiary rounded-full text-accent-tertiary text-xs font-medium">
                       💡 Concept
                     </div>
                   )}
                   {project.status === "in-progress" && (
-                    <div className="absolute top-3 right-3 px-3 py-1 bg-owl-blue/20 border border-owl-blue rounded-full text-owl-blue text-xs font-medium">
+                    <div className="absolute top-3 right-3 px-3 py-1 bg-accent-secondary/20 border border-accent-secondary rounded-full text-accent-secondary text-xs font-medium">
                       🚧 In Progress
                     </div>
                   )}
@@ -166,13 +166,13 @@ export function Projects() {
                   {/* Overlay links - only for completed projects */}
                   {project.status !== "concept" &&
                     (project.liveUrl || project.githubUrl) && (
-                      <div className="absolute inset-0 bg-night-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                      <div className="absolute inset-0 bg-bg-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                         {project.liveUrl && (
                           <a
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-12 h-12 bg-owl-cyan rounded-full flex items-center justify-center text-night-900 hover:scale-110 transition-transform"
+                            className="w-12 h-12 bg-accent-primary rounded-full flex items-center justify-center text-bg-900 hover:scale-110 transition-transform"
                             title="View Live"
                           >
                             <svg
@@ -195,7 +195,7 @@ export function Projects() {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-night-900 hover:scale-110 transition-transform"
+                            className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-bg-900 hover:scale-110 transition-transform"
                             title="View Code"
                           >
                             <svg
@@ -214,11 +214,11 @@ export function Projects() {
                 {/* Content */}
                 <div className="p-6">
                   <h3
-                    className={`text-xl font-bold text-${project.color} mb-2`}
+                    className={`text-xl font-bold text-accent-${project.accent} mb-2`}
                   >
                     {project.title}
                   </h3>
-                  <p className="text-night-500 text-sm mb-4 line-clamp-3">
+                  <p className="text-text-secondary text-sm mb-4 line-clamp-3">
                     {project.description}
                   </p>
 
@@ -227,7 +227,7 @@ export function Projects() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-1 bg-night-800 rounded text-xs text-night-500"
+                        className="px-2 py-1 bg-bg-800 rounded text-xs text-text-secondary"
                       >
                         {tag}
                       </span>

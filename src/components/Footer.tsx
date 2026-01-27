@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
+import { useTheme } from "./ThemeContext";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { theme } = useTheme();
 
   return (
     <motion.footer
-      className="py-8 border-t border-night-700 bg-night-900"
+      className="py-8 border-t border-bg-700 bg-bg-900 transition-colors duration-300"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -15,44 +17,51 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Logo */}
           <motion.div
-            className="flex items-center gap-2 font-display"
+            className="flex items-center gap-2 font-display font-bold"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-2xl">🦉</span>
-            <span className="text-owl-cyan">Night</span>
-            <span className="text-owl-purple">OwL</span>
-            <span className="text-night-500">Dev</span>
+            <span className="text-2xl">{theme === "dark" ? "😴" : "🍋"}</span>
+            <span className="text-accent-primary">{theme === "dark" ? "Sleepy" : "Lemon"}</span>
+            <span className="text-accent-secondary">{theme === "dark" ? "Lemon" : "Dev"}</span>
           </motion.div>
 
           {/* Copyright */}
-          <div className="text-night-500 text-sm text-center">
+          <div className="text-text-secondary text-sm text-center">
             <p>
-              © {currentYear} Night OwL Developer. Built with{" "}
-              <span className="text-owl-pink">♥</span> and lots of{" "}
-              <span className="text-coffee-light">☕</span> at night.
+              © {currentYear} {theme === "dark" ? "Sleepy" : "Lemon"} Developer. Built with{" "}
+              <span className="text-accent-tertiary">♥</span> and{" "}
+              {theme === "dark" ? (
+                <>lots of <span className="text-accent-primary">☕ coffee</span></>
+              ) : (
+                <>lots of <span className="text-accent-secondary">🍋 lemonade</span></>
+              )}.
             </p>
           </div>
 
           {/* Made with */}
-          <div className="flex items-center gap-2 text-night-500 text-sm">
+          <div className="flex items-center gap-2 text-text-secondary text-sm">
             <span>Made with</span>
-            <span className="text-owl-cyan">React</span>
+            <span className="text-accent-primary">React</span>
             <span>+</span>
-            <span className="text-owl-blue">TypeScript</span>
+            <span className="text-accent-secondary">TS</span>
             <span>+</span>
-            <span className="text-owl-purple">Tailwind</span>
+            <span className="text-accent-tertiary">Tailwind</span>
           </div>
         </div>
 
         {/* Fun message */}
         <motion.div
-          className="text-center mt-6 text-night-600 text-sm font-display"
+          className="text-center mt-6 text-text-secondary opacity-60 text-sm font-display"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <p>// Current status: Probably coding at 3 AM 🌙</p>
+          <p>
+            {theme === "dark"
+              ? "// Current status: Dreaming in binary 😴"
+              : "// Current status: Squeezing fresh code 🍋"}
+          </p>
         </motion.div>
       </div>
     </motion.footer>

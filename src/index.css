@@ -1,29 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  /* Night OwL Color Palette */
-  --color-night-900: #011627;
-  --color-night-800: #0d293e;
-  --color-night-700: #1d3b53;
-  --color-night-600: #2e4a62;
-  --color-night-500: #5f7e97;
-
-  --color-owl-amber: #f78c6c;
-  --color-owl-cyan: #7fdbca;
-  --color-owl-purple: #c792ea;
-  --color-owl-yellow: #ffcb8b;
-  --color-owl-blue: #82aaff;
-  --color-owl-green: #addb67;
-  --color-owl-pink: #ff5874;
-
-  --color-coffee-dark: #3c2415;
-  --color-coffee-medium: #6f4e37;
-  --color-coffee-light: #c4a484;
-  --color-coffee-cream: #fffdd0;
-
-  /* Fonts */
+  /* Common Fonts */
   --font-display: "JetBrains Mono", "Fira Code", monospace;
   --font-body: "Inter", system-ui, sans-serif;
+
+  /* Theme-specific Colors (Defined as semantic variables for Tailwind) */
+  --color-bg-900: var(--bg-900);
+  --color-bg-800: var(--bg-800);
+  --color-bg-700: var(--bg-700);
+  --color-bg-600: var(--bg-600);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-tertiary: var(--accent-tertiary);
+
+  /* Helper palette colors kept for manual SVG use or specific classes */
+  --color-coffee-light: #c4a484;
+  --color-citrus-yellow: #fde047;
+}
+
+:root {
+  /* Lemonade Theme (Light/Default) - Soft & Eye-Friendly */
+  --bg-900: #fbf9f1;
+  /* Soft warm white */
+  --bg-800: #f5f2e1;
+  --bg-700: #e9e4c5;
+  --bg-600: #dcd6a5;
+  --text-primary: #2d2a22;
+  /* Soft dark brown */
+  --text-secondary: #5e5b4c;
+  --accent-primary: #6d9c10;
+  /* Muted lime */
+  --accent-secondary: #c99300;
+  /* Muted gold */
+  --accent-tertiary: #b45309;
+  /* Warm amber */
+}
+
+.dark {
+  /* Sleepy Lemon Theme (Dark) */
+  --bg-900: #0f172a;
+  /* Deep slate/indigo */
+  --bg-800: #1e293b;
+  --bg-700: #334155;
+  --bg-600: #475569;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-primary: #fbbf24;
+  /* Warm yellow */
+  --accent-secondary: #fcd34d;
+  --accent-tertiary: #c4a484;
+  /* Coffee tint */
 }
 
 /* Custom scrollbar */
@@ -32,46 +61,49 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-night-900);
+  background: var(--bg-900);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-night-600);
+  background: var(--bg-700);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-owl-cyan);
+  background: var(--accent-primary);
 }
 
 /* Selection */
 ::selection {
-  background: var(--color-owl-purple);
-  color: var(--color-night-900);
+  background: var(--accent-primary);
+  color: var(--bg-900);
 }
 
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.3s ease;
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-night-900);
-  color: #d6deeb;
+  background-color: var(--bg-900);
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
 /* Glowing text effect */
 .glow-text {
-  text-shadow: 0 0 20px var(--color-owl-cyan), 0 0 40px var(--color-owl-cyan);
+  text-shadow: 0 0 20px var(--accent-primary), 0 0 40px var(--accent-primary);
 }
 
-/* Floating animation */
+/* Animations */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -81,12 +113,13 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Twinkle animation for stars */
 @keyframes twinkle {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.3;
   }
@@ -96,16 +129,17 @@ body {
   animation: twinkle 3s ease-in-out infinite;
 }
 
-/* Steam animation for coffee */
 @keyframes steam {
   0% {
     transform: translateY(0) scaleX(1);
     opacity: 0.8;
   }
+
   50% {
     transform: translateY(-10px) scaleX(1.2);
     opacity: 0.5;
   }
+
   100% {
     transform: translateY(-20px) scaleX(0.8);
     opacity: 0;
@@ -116,12 +150,13 @@ body {
   animation: steam 2s ease-out infinite;
 }
 
-/* Typing cursor */
 @keyframes blink {
+
   0%,
   50% {
     opacity: 1;
   }
+
   51%,
   100% {
     opacity: 0;
