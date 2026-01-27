@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "./ScrollReveal";
-import { ProjectPlaceholder } from "./ProjectPlaceholder";
-import { ProjectModal } from "./ProjectModal";
+import { motion, AnimatePresence } from "framer-motion";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "../ui/ScrollReveal";
+import { ProjectPlaceholder } from "../projects/ProjectPlaceholder";
+import { ProjectModal } from "../projects/ProjectModal";
+
+import { SmallProjectPrototypes } from "../projects/SmallProjectPrototypes";
 
 interface Project {
   title: string;
   description: string;
-  image: string;
+  images: string[];
   tags: string[];
   liveUrl?: string;
   githubUrl?: string;
@@ -20,7 +22,7 @@ const projects: Project[] = [
     title: "TDC SocialSphere",
     description:
       "A social web platform with post, comment, and like interactions, featuring role-based classrooms, surveys, and online exams. Built with React, Laravel, and GraphQL.",
-    image: "/projects/TDC-SocialSphere.png",
+    images: ["/projects/TDC-SocialSphere.png"],
     tags: ["React", "Laravel", "GraphQL", "JavaScript", "Tailwind"],
     githubUrl: "https://github.com/TrshCan/CDWeb_NhomH_DoAnWebEL",
     accent: "primary",
@@ -30,7 +32,7 @@ const projects: Project[] = [
     title: "King God Castle Web Game",
     description:
       "A fan-made, text-based 2D web MMORPG inspired by King God Castle, featuring hero summoning, equipment systems, expeditions, and long-term progression. Currently in active development.",
-    image: "/projects/kgc.png",
+    images: ["/projects/kgc.png"],
     tags: ["React", "Laravel", "GraphQL", "JavaScript", "Tailwind"],
     githubUrl: "https://github.com/TrshCan/KingGodCastle",
     accent: "secondary",
@@ -40,7 +42,7 @@ const projects: Project[] = [
     title: "King God Castle Assets",
     description:
       "A platform for sharing and browsing King God Castle game assets. Explore hero images, icons, and other game resources.",
-    image: "", // Empty to test placeholder
+    images: [], // Empty to test placeholder
     tags: ["Coming Soon"],
     accent: "tertiary",
     status: "concept",
@@ -49,7 +51,7 @@ const projects: Project[] = [
     title: "King God Castle AI",
     description:
       "AI assistant for King God Castle. Answer questions about the game, suggest team compositions, and auto-play features. Premium subscription service.",
-    image: "", // Empty to test placeholder
+    images: [], // Empty to test placeholder
     tags: ["AI", "Premium"],
     accent: "primary",
     status: "concept",
@@ -59,6 +61,7 @@ const projects: Project[] = [
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showSmallProjects, setShowSmallProjects] = useState(false);
 
   const handleCardClick = (project: Project) => {
     setSelectedProject(project);
@@ -151,11 +154,11 @@ export function Projects() {
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
-                  {!project.image ? (
+                  {project.images.length === 0 ? (
                     <ProjectPlaceholder accent={project.accent} />
                   ) : (
                     <img
-                      src={project.image}
+                      src={project.images[0]}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -257,6 +260,58 @@ export function Projects() {
           onClose={() => setIsModalOpen(false)}
           project={selectedProject}
         />
+
+        {/* Small Projects Toggle */}
+        <div className="mt-20">
+          <button
+            onClick={() => setShowSmallProjects(!showSmallProjects)}
+            className="group flex flex-col items-center mx-auto space-y-4 hover:opacity-100 transition-opacity"
+          >
+            <div className="flex items-center gap-3">
+              <span className="w-12 h-[1px] bg-bg-700" />
+              <span className="text-text-secondary text-sm font-bold tracking-widest uppercase">
+                Small Projects
+              </span>
+              <span className="w-12 h-[1px] bg-bg-700" />
+            </div>
+            <motion.div
+              animate={{ rotate: showSmallProjects ? 180 : 0 }}
+              className="p-2 rounded-full bg-bg-900 border border-bg-700 group-hover:border-accent-primary transition-colors"
+            >
+              <svg
+                className="w-5 h-5 text-text-secondary group-hover:text-accent-primary transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </motion.div>
+          </button>
+
+          <AnimatePresence>
+            {showSmallProjects && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="pt-12">
+                  <ScrollReveal>
+                    <SmallProjectPrototypes />
+                  </ScrollReveal>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );

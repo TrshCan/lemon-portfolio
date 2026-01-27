@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { LemonIcon } from "./LemonIcon";
 import { CoffeeCup } from "./CoffeeCup";
-import { useTheme } from "./ThemeContext";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface WIPModalProps {
     isOpen: boolean;

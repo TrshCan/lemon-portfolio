@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useTheme } from "./ThemeContext";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

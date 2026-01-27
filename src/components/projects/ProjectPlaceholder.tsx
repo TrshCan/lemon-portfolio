@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { LemonIcon } from "./LemonIcon";
-import { CoffeeCup } from "./CoffeeCup";
-import { useTheme } from "./ThemeContext";
+import { LemonIcon } from "../ui/LemonIcon";
+import { CoffeeCup } from "../ui/CoffeeCup";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface ProjectPlaceholderProps {
     accent: string;

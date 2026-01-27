@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ScrollReveal } from "./ScrollReveal";
-import { useTheme } from "./ThemeContext";
-import { WIPModal } from "./WIPModal";
+import { ScrollReveal } from "../ui/ScrollReveal";
+import { useTheme } from "../../contexts/ThemeContext";
+import { WIPModal } from "../ui/WIPModal";
 
 export function About() {
   const { theme } = useTheme();

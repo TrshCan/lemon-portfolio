@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LemonIcon } from "./LemonIcon";
-import { CoffeeCup } from "./CoffeeCup";
-import { useTheme } from "./ThemeContext";
+import { LemonIcon } from "../ui/LemonIcon";
+import { CoffeeCup } from "../ui/CoffeeCup";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface ProjectModalProps {
     isOpen: boolean;
@@ -14,17 +15,33 @@ interface ProjectModalProps {
         status?: "completed" | "in-progress" | "concept";
         liveUrl?: string;
         githubUrl?: string;
-        image?: string;
+        images: string[];
     } | null;
 }
 
 export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     const { theme } = useTheme();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    // Reset index when project changes
+    useEffect(() => {
+        setCurrentImageIndex(0);
+    }, [project?.title]);
 
     if (!project) return null;
 
     const isConcept = project.status === "concept";
-    const hasImage = !!project.image;
+    const hasImages = project.images && project.images.length > 0;
+
+    const nextImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    };
+
+    const prevImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+    };
 
     return (
         <AnimatePresence>
@@ -45,7 +62,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className={`bg-bg-800 border border-bg-700 rounded-3xl overflow-hidden shadow-2xl relative pointer-events-auto border-t-4 border-t-accent-${project.accent} ${hasImage ? 'max-w-3xl w-full' : 'max-w-2xl w-full'}`}
+                            className={`bg-bg-800 border border-bg-700 rounded-3xl overflow-hidden shadow-2xl relative pointer-events-auto border-t-4 border-t-accent-${project.accent} ${hasImages ? 'max-w-3xl w-full' : 'max-w-2xl w-full'}`}
                         >
                             {/* Close Button */}
                             <button
@@ -58,19 +75,62 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                             </button>
 
                             {/* Conditional Layout */}
-                            {hasImage ? (
+                            {hasImages ? (
                                 /* Image-based Layout (Banner) */
                                 <div className="flex flex-col">
-                                    <div className="relative h-64 md:h-96 overflow-hidden">
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="w-full h-full object-cover"
-                                        />
-                                        <div className={`absolute inset-0 bg-linear-to-t from-bg-800 via-bg-800/20 to-transparent`} />
+                                    <div className="relative h-64 md:h-96 overflow-hidden bg-bg-900 group/gallery">
+                                        <AnimatePresence mode="wait">
+                                            <motion.img
+                                                key={currentImageIndex}
+                                                src={project.images[currentImageIndex]}
+                                                alt={`${project.title} - screenshot ${currentImageIndex + 1}`}
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </AnimatePresence>
+
+                                        {/* Gallery Controls */}
+                                        {project.images.length > 1 && (
+                                            <>
+                                                <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover/gallery:opacity-100 transition-opacity">
+                                                    <button
+                                                        onClick={prevImage}
+                                                        className="p-2 rounded-full bg-bg-900/50 backdrop-blur-md text-white hover:bg-accent-primary hover:text-bg-900 transition-all"
+                                                    >
+                                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                                        </svg>
+                                                    </button>
+                                                    <button
+                                                        onClick={nextImage}
+                                                        className="p-2 rounded-full bg-bg-900/50 backdrop-blur-md text-white hover:bg-accent-primary hover:text-bg-900 transition-all"
+                                                    >
+                                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                                {/* Dots */}
+                                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                                                    {project.images.map((_, i) => (
+                                                        <button
+                                                            key={i}
+                                                            onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
+                                                            className={`w-2 h-2 rounded-full transition-all ${i === currentImageIndex ? `bg-accent-${project.accent} w-6` : 'bg-white/30 hover:bg-white/50'}`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </>
+                                        )}
+
+                                        <div className={`absolute inset-0 bg-linear-to-t from-bg-800 via-bg-800/20 to-transparent pointer-events-none`} />
 
                                         {/* Overlay Title */}
-                                        <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+                                        <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full pointer-events-none">
                                             <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-3 bg-accent-${project.accent}/20 backdrop-blur-md text-accent-${project.accent} border border-accent-${project.accent}/30`}>
                                                 {project.status || "Completed"}
                                             </div>

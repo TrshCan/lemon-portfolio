@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
-import { useTheme } from "./ThemeContext";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const navLinks = [
   { href: "#home", label: "Home" },

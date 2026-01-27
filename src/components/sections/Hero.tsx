@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LemonIcon } from "./LemonIcon";
-import { CoffeeCup } from "./CoffeeCup";
-import { Lemonade } from "./Lemonade";
-import { useTheme } from "./ThemeContext";
-import { WIPModal } from "./WIPModal";
+import { LemonIcon } from "../ui/LemonIcon";
+import { CoffeeCup } from "../ui/CoffeeCup";
+import { Lemonade } from "../ui/Lemonade";
+import { useTheme } from "../../contexts/ThemeContext";
+import { WIPModal } from "../ui/WIPModal";
 
 export function Hero() {
   const { theme } = useTheme();

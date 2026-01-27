@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "./ScrollReveal";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "../ui/ScrollReveal";
 
 const skillCategories = [
   {
