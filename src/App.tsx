@@ -4,6 +4,7 @@ import { WeatherView } from "./pages/WeatherView";
 import { MusicPlayerView } from "./pages/MusicPlayerView";
 import { KingGodCastleHelperView } from "./pages/KingGodCastleHelperView";
 import { SkinsPageView } from "./pages/SkinsPageView";
+import { SacramentumCalculatorView } from "./pages/SacramentumCalculatorView";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/music" element={<MusicPlayerView />} />
         <Route path="/kgc-helper" element={<KingGodCastleHelperView />} />
         <Route path="/kgc-helper/skins" element={<SkinsPageView />} />
+        <Route path="/kgc-helper/calculator/sacramentum" element={<SacramentumCalculatorView />} />
       </Routes>
     </BrowserRouter>
   );

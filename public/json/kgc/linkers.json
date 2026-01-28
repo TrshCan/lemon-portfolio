@@ -1,0 +1,23 @@
+[
+    {
+        "id": "luniare",
+        "name": "Luniare",
+        "baseAtk": 15,
+        "baseSp": 15,
+        "baseHp": 250
+    },
+    {
+        "id": "saeryung",
+        "name": "Saeryung",
+        "baseAtk": 15,
+        "baseSp": 15,
+        "baseHp": 350
+    },
+    {
+        "id": "mano",
+        "name": "Mano",
+        "baseAtk": 15,
+        "baseSp": 0,
+        "baseHp": 380
+    }
+]

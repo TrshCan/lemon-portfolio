@@ -1,0 +1,86 @@
+[
+    {
+        "id": "evan",
+        "name": "Evan",
+        "baseAtk": 70,
+        "baseSp": 0,
+        "baseHp": 400
+    },
+    {
+        "id": "zuo_yun",
+        "name": "Zuo Yun",
+        "baseAtk": 85,
+        "baseSp": 0,
+        "baseHp": 350
+    },
+    {
+        "id": "mel",
+        "name": "Mel",
+        "baseAtk": 90,
+        "baseSp": 0,
+        "baseHp": 380
+    },
+    {
+        "id": "bombie",
+        "name": "Bombie",
+        "baseAtk": 75,
+        "baseSp": 0,
+        "baseHp": 320
+    },
+    {
+        "id": "luniare",
+        "name": "Luniare",
+        "baseAtk": 40,
+        "baseSp": 100,
+        "baseHp": 250
+    },
+    {
+        "id": "priya",
+        "name": "Priya",
+        "baseAtk": 35,
+        "baseSp": 90,
+        "baseHp": 280
+    },
+    {
+        "id": "rossete",
+        "name": "Rossete",
+        "baseAtk": 80,
+        "baseSp": 10,
+        "baseHp": 450
+    },
+    {
+        "id": "bardrey",
+        "name": "Bardrey",
+        "baseAtk": 30,
+        "baseSp": 50,
+        "baseHp": 300
+    },
+    {
+        "id": "chung_ah",
+        "name": "Chung Ah",
+        "baseAtk": 65,
+        "baseSp": 20,
+        "baseHp": 420
+    },
+    {
+        "id": "lyca",
+        "name": "Lyca",
+        "baseAtk": 75,
+        "baseSp": 0,
+        "baseHp": 360
+    },
+    {
+        "id": "hansi",
+        "name": "Hansi",
+        "baseAtk": 80,
+        "baseSp": 0,
+        "baseHp": 320
+    },
+    {
+        "id": "kanak",
+        "name": "Kanak",
+        "baseAtk": 40,
+        "baseSp": 80,
+        "baseHp": 280
+    }
+]
